@@ -1,3 +1,5 @@
+Note, this code was forked from [here](https://github.com/hzeller/rpi-rgb-led-matrix) and was last updated on 2017/05/10, I will not be pulling newer version unless it adds anything mindblowingly useful, but you're free to do so yourself if you like.
+
 Controlling RGB LED display with Raspberry Pi GPIO
 ==================================================
 
