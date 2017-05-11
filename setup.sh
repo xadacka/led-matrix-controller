@@ -54,7 +54,7 @@ sudo chown -R www-data:www-data www
 echo "adding cronjob to show ip address on boot"
 ############### to-do
 clear
-echo "system will reboot in 10 seconds. after reboot, you should see the ip address on your led panel. go to that address to update the screen. the default password is \"password\"."
+printf  "system will reboot in 10 seconds.\nafter reboot, you should see the ip address on your led panel.\ngo to that address to update the screen.\n\nthe default password is \"password\".\n\n"
 sleep 5
 echo "5"
 sleep 1
