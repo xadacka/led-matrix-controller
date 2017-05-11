@@ -81,7 +81,7 @@ if ($visAnimation == "fingers"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/scripts/');
-$output = shell_exec('sudo ./fingers.sh > /dev/null 2>/dev/null &');
+$output = shell_exec('sudo ./finger.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 
@@ -90,6 +90,22 @@ $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./guinnesspints.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
+if ($visAnimation == "tuamstars"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./tuamstars.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
+if ($visAnimation == "gins"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./gins.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 
@@ -453,8 +469,16 @@ print $line;
                 <input type="radio" id="eggplants" class="mdl-radio__button" name="animation" value="eggplants">
                 <span class="mdl-radio__label">Eggplants
                 </span>
+              </label><br><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="tuamstars">
+                <input type="radio" id="tuamstars" class="mdl-radio__button" name="animation" value="tuamstars">
+                <span class="mdl-radio__label">Tuam Stars - Come on the stars!
+                </span>
               </label><br>
-              
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gins">
+                <input type="radio" id="gins" class="mdl-radio__button" name="animation" value="gins">
+                <span class="mdl-radio__label">Want a gin? (logos)
+                </span>
+              </label><br>
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="heineken">
                 <input type="radio" id="heineken" class="mdl-radio__button" name="animation" value="heiniken">
                 <span class="mdl-radio__label">Heineken
