@@ -46,7 +46,7 @@ header of the old Raspberry Pis. Newer Raspberry Pis with 40 pins have more
 GPIO lines which allows us to connect three parallel chains of RGB panels.
 
 For reference, this is how the numbering on the Raspberry Pi looks like:
-<a href="img/raspberry-gpio.jpg"><img src="img/raspberry-gpio.jpg" width="600px"></a>
+<img src="rpi-rgb-led-matrix/img/raspberry-gpio.jpg" width="600px">
 
 This is the same representation used in the table below, which helps for
 visual inspection.
@@ -97,7 +97,7 @@ chains have all icons.
 In the [adapter/](./adapter) directory, there are some boards that make
 the wiring task simpler.
 
-<a href="adapter/"><img src="img/three-parallel-panels-soic.jpg" width="300px"></a>
+<img src="rpi-rgb-led-matrix/img/three-parallel-panels-soic.jpg" width="300px">
 
 ### Chains
 
@@ -179,8 +179,8 @@ guidelines:
 
 Now welcome your over-engineered power solution :)
 
-[hub75]: ./img/hub75.jpg
-[hub75-arrow]: ./img/hub75-other.jpg
-[hub75-idc]: ./img/idc-hub75-connector.jpg
-[coordinates]: ./img/coordinates.png
-[powerbar]: ./img/powerbar.jpg
+[hub75]: ./rpi-rgb-led-matrix/img/hub75.jpg
+[hub75-arrow]: ./rpi-rgb-led-matrix/img/hub75-other.jpg
+[hub75-idc]: ./rpi-rgb-led-matrix/img/idc-hub75-connector.jpg
+[coordinates]: ./rpi-rgb-led-matrix/img/coordinates.png
+[powerbar]: ./rpi-rgb-led-matrix/img/powerbar.jpg
