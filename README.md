@@ -1,3 +1,5 @@
+Note: This is unfinished code with lots missing at the moment, if you stumble across this and would like to use it, just star it and check back for when this warning is gone. Using it as is will almost certainly break something.
+
 led-matrix-controller
 =====================
 Web based controller for led panels. This code is designed for Raspberry Pi using HUB75 led panels. You can buy the panels cheap from China, or get them off eBay or adafruit or a multitude of other places.
@@ -12,12 +14,18 @@ Currently, the code is designed for two 32x16 panels in series from chain 1 - wi
 
 Automated Setup
 ---------------
-To use this code, simply
+We strongly recommend running raspbian-lite as opposed to the full version, you can download the image [here](https://www.raspberrypi.org/downloads/raspbian/)
 
-```git clone https://github.com/xer0design/led-matrix-controller.git
+To use this code, simply run the commands below. You'll be asked if you'd like to upgrade all packages on the system, you probably won't need to, especially if running a freshly downloaded image, but it's never really a bad idea to be up to date.
+
+```
+cd /home/pi
+git clone https://github.com/xer0design/led-matrix-controller.git
 cd led-matrix-controller
+chmod +x setup.sh
 ./setup.sh
 ```
+
 
 This will automate everything and will reboot after, once the reboot is finished you should see your Pi's IP address scrolling across the screen and from there, you can type it into your browser and start using your panel.
 
