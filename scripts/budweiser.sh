@@ -1,5 +1,5 @@
 killall -9 demo
 killall -9 led-image-viewer
-cd /home/pi/rpi-rgb-led-matrix/utils/
-sudo /home/pi/rpi-rgb-led-matrix/utils/led-image-viewer bud.gif --led-rows=16 --led-chain=2 >/dev/null
+cd /home/pi/led-matrix-controller/rpi-rgb-led-matrix/utils/
+sudo /home/pi/led-matrix-controller/rpi-rgb-led-matrix/utils/led-image-viewer vbud.gif --led-rows=16 --led-chain=4 >/dev/null
 exit 0

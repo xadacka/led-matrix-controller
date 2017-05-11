@@ -1,7 +1,0 @@
-Size: 64x16. Hardware gpio mapping: regular
-Press <CTRL-C> to exit and reset LEDs
-Received CTRL-C. Exiting.
-123456
-54
-t= (255, 255, 255) 0
-t=123456 (255, 255, 255) 0

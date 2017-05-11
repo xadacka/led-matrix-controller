@@ -76,68 +76,100 @@ chdir($old_path);
 if ($visAnimation == ""){
 //do nothing
 }
-if ($visAnimation == "finger"){
+
+if ($visAnimation == "fingers"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
-$output = shell_exec('sudo ./finger.sh > /dev/null 2>/dev/null &');
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./fingers.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
+if ($visAnimation == "gpints"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./guinnesspints.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
+if ($visAnimation == "checkin"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./checkin.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
+if ($visAnimation == "eggplants"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./eggplant.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
 if ($visAnimation == "smiles"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./smiles.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 if ($visAnimation == "heiniken"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./heineken.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 if ($visAnimation == "guinness"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./guinness.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 if ($visAnimation == "blogo"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./blogo.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 if ($visAnimation == "hophouse"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./hophouse.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 if ($visAnimation == "carlsberg"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./carlsberg.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 if ($visAnimation == "budweiser"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./budweiser.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 
-if ($visAnimation == "sword"){
+if ($visAnimation == "liverpool"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
-$output = shell_exec('sudo ./sword.sh > /dev/null 2>/dev/null &');
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./liverpool.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 ?>
@@ -398,21 +430,31 @@ print $line;
                 <span class="mdl-radio__label">Brogue Logo
                 </span>
               </label><br>
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="sword">
-                <input type="radio" id="sword" class="mdl-radio__button" name="animation" value="sword">
-                <span class="mdl-radio__label">Sword
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="checkin">
+                <input type="radio" id="checkin" class="mdl-radio__button" name="animation" value="checkin">
+                <span class="mdl-radio__label">Brogue - Check In On Facebook
                 </span>
               </label><br>
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="smiles">
-                <input type="radio" id="smiles" class="mdl-radio__button" name="animation" value="smiles">
-                <span class="mdl-radio__label">Smiles
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="liverpool">
+                <input type="radio" id="liverpool" class="mdl-radio__button" name="animation" value="liverpool">
+                <span class="mdl-radio__label">Liverpool
                 </span>
               </label><br>
-              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="finger">
-                <input type="radio" id="finger" class="mdl-radio__button" name="animation" value="finger">
-                <span class="mdl-radio__label">Middle Finger
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gpints">
+                <input type="radio" id="gpints" class="mdl-radio__button" name="animation" value="gpints">
+                <span class="mdl-radio__label">Guinness Pint Glasses
                 </span>
               </label><br>
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="fingers">
+                <input type="radio" id="fingers" class="mdl-radio__button" name="animation" value="fingers">
+                <span class="mdl-radio__label">Middle Fingers
+                </span>
+              </label><br><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="eggplants">
+                <input type="radio" id="eggplants" class="mdl-radio__button" name="animation" value="eggplants">
+                <span class="mdl-radio__label">Eggplants
+                </span>
+              </label><br>
+              
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="heineken">
                 <input type="radio" id="heineken" class="mdl-radio__button" name="animation" value="heiniken">
                 <span class="mdl-radio__label">Heineken

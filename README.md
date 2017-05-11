@@ -1,4 +1,4 @@
-Note: This is unfinished code with lots missing at the moment, if you stumble across this and would like to use it, just star it and check back for when this warning is gone. Using it as is will almost certainly break something.
+Update: This is still very unfinished code but most or all of it should at least work. You should probably wait before installing it but you should't have too many issues at the moment. Also note that this code is designed for myself for use in pubs, so the preloaded animations will reflect that. 
 
 led-matrix-controller
 =====================
@@ -8,7 +8,7 @@ Clone the repository into your home folder (/home/pi - you'll have to edit setup
 
 Notes before starting
 ---------------------
-Currently, the code is designed for two 32x16 panels in series from chain 1 - will soon be adding an option on the web interface for changing how many panels you have and how they're chained. You can manually change this now to add/remove panels by changing the flags in the bash scripts but this will be horribly time consuming for you. Best just wait it out.
+Currently, the code is designed for 4 32x16 panels in series from chain 1 - will soon be adding an option on the web interface for changing how many panels you have and how they're chained. You can manually change this now to add/remove panels by changing the flags in the bash scripts but this will be horribly time consuming for you. Best just wait it out.
 
 You should probably wire the panels before running the scripts as once it's installed, it'll show you the pi's IP on the screen but you can leave that until after if you like. Wiring diagram is [here](./wiring.md)
 
