@@ -1,17 +1,30 @@
+#!/bin/bash
+
+
+#   copyright xer0.design - licenced under gpl 3.0
+#   https://github.com/xer0design/led-matrix-controller
+
+
 echo "please do not use this, it is unfinished code and will almost certainly break something. press ctrl+c to cancel"
 sleep 10
-#update apt
-echo "updating pakcage lists"
-sudo apt update 
-#upgrade all packages
-echo "upgrading all packages on system"
-sudo apt -y upgrade
+#update and upgrade all packages if requested
+read -r -p "Would you like to update apt and upgrade all packages? (recommended) [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+then
+	echo "okay, upgrading packages"
+	sudo apt update
+	sudo apt -y upgrade
+else
+    echo "okay, continuing..."
+fi
 #install apache2 
 echo "installing apache2 required extensions to run the web ui"
 sudo apt install apache2 php5 python -y
-#add www-data to sudoers 
-echo "adding apache to sudoers - this is needed to access gpio pins"
-################
+#allowing gpio pins to be run by www-data. this is slightly safer than adding www-data to sudoers
+echo "allowing all users to access gpio"
+sudo adduser www-data gpio
+sudo adduser pi gpio
+#echo "chmod 666 /dev/mem" >> /etc/rc.local
 #install tools for generating images
 echo "installing tools required for generating images and text on the fly"
 sudo apt-get install libgraphicsmagick++-dev libwebp-dev -y
@@ -22,19 +35,27 @@ make
 #enter utilities and make
 cd ../utils 
 make led-image-viewer
-cd ..
-#move website data into apache directory
-echo "moving required files to web directory"
-sudo rm -rf /var/www
-sudo cp -r www /var/
-sudo chmod -R 777 /var/www/
-sudo chown -R www-data:www-data /var/www
+cd ../..
+#disable pi sound
+echo "dtparam=audio=off" >> /boot/config.txt
+cat <<EOF | sudo tee /etc/modprobe.d/blacklist-rgb-matrix.conf
+blacklist snd_bcm2835
+EOF
+sudo update-initramfs -u
+#setup apache
+echo "setting up web controller"
+#remove current html directory
+sudo rm -rf /var/www/html
+#make symlink for website to load from current folder and make sure permissions are okay
+ln -s /home/pi/led-matrix-controller/www/ /var/www/html
+sudo chmod -R 777 www
+sudo chown -R www-data:www-data www
 #add cronjob to display ip address on boot
 echo "adding cronjob to show ip address on boot"
-###############
-#reboot
-echo "system will now reboot. after reboot, you should see the ip address on your led panel. go to that address to update the screen. the default password is \"password\"."
-sleep 1
+############### to-do
+clear
+echo "system will reboot in 10 seconds. after reboot, you should see the ip address on your led panel. go to that address to update the screen. the default password is \"password\"."
+sleep 5
 echo "5"
 sleep 1
 echo "4"
