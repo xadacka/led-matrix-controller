@@ -4,19 +4,21 @@ led-matrix-controller
 =====================
 Web based controller for led panels. This code is designed for Raspberry Pi using HUB75 led panels. You can buy the panels cheap from China, or get them off eBay or adafruit or a multitude of other places.
 
-Clone the repository into your home folder (/home/pi, probably) and then you can cd in and run setup.sh. The setup script will install apache2 and move the required files into the web directory and change a few permissions for apache. The only way this can work, as far as I'm aware, is by adding www-data to sudoers, this is VERY unsafe and as such this code should only be used on a device you have locked down and that doesn't provide any other services. The reason www-data needs to be able to run sudo is because the rpi gpio pins can only be accessed with sudo.
-
-Again, let me be clear, the way this works is very, very insecure and should not be used unless you have your pi locked down and not serving any other purpose. It should also absolutely not be on a public facing network.
+Clone the repository into your home folder (/home/pi - you'll have to edit setup.sh if using another directory) and then you can cd in and run setup.sh. The setup script will install apache2 and move the required files into the web directory and change a few permissions for apache. The only way this can work is by letting www-data (apache, php) access the GPIO pins. By default, they require sudo - the setup script allows www-data to access them. This is a minor security issue but shouldn't be too bad.
 
 Notes before starting
 ---------------------
 Currently, the code is designed for two 32x16 panels in series from chain 1 - will soon be adding an option on the web interface for changing how many panels you have and how they're chained. You can manually change this now to add/remove panels by changing the flags in the bash scripts but this will be horribly time consuming for you. Best just wait it out.
+
+You should probably wire the panels before running the scripts as once it's installed, it'll show you the pi's IP on the screen but you can leave that until after if you like. Wiring diagram is [here](./wiring.md)
 
 Automated Setup
 ---------------
 We strongly recommend running raspbian-lite as opposed to the full version, you can download the image [here](https://www.raspberrypi.org/downloads/raspbian/)
 
 To use this code, simply run the commands below. You'll be asked if you'd like to upgrade all packages on the system, you probably won't need to, especially if running a freshly downloaded image, but it's never really a bad idea to be up to date.
+
+The setup script will only work properly if you're cloning into /home/pi - if you'd rather install it somewhere else, you'll need to update the install script to reflect your location.
 
 ```
 cd /home/pi
