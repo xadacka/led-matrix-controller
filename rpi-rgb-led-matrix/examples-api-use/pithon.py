@@ -15,7 +15,12 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 text = scrolltext.text
 
 #standard san serif font
-font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 16)
+#font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 16)
+
+
+
+#american captain
+font = ImageFont.truetype("/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/americancaptain.ttf", 16)
 #more styalized
 #font = ImageFont.truetype("/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/TooMuchInk.ttf", 16)
 #pretty but no numbers and doesn't scale as well
