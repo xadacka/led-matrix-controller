@@ -1,4 +1,4 @@
-Update: This is still very unfinished code but most or all of it should at least work. You should probably wait before installing it but you should't have too many issues at the moment. Also note that this code is designed for myself for use in pubs, so the preloaded animations will reflect that. 
+Note: This is still beta and will be changing and needs to be tidied up a ibt but it all works pretty well, just install it and control it from the web interface.
 
 led-matrix-controller
 =====================
