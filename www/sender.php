@@ -1,5 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> 
 <?php 
+#by default, sender.php can be loaded without password. uncomment this section and the page will not load without correct password
+
 #session_start(); 
 #if($_SESSION['username']) { // check that session 
 #if($_POST['Logout'] == 'Logout') { // check for form submit
@@ -20,16 +22,14 @@ $visColour = strip_tags($_POST['colour']);
 $vis1Colour = strip_tags($_POST['1colour']);
 $visAnimation = strip_tags($_POST['animation']);
 $visClear = strip_tags($_POST['clear']);
-$visAppName = strip_tags($_POST['application_name']);
-#$visColour = $_POST['colour'];
 $file = '/var/www/html/listclean.txt'; 
 $newfile = '/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py'; 
 // Clear old file
 if (!copy($file, $newfile)) { 
-echo "There has been an error. List has not been cleared $file..."; 
+echo "There has been an error. Screen has not been cleared $file..."; 
 } 
 else{
-echo "Successfully cleared list.";
+echo "Successfully cleared screen.";
 }
 // Capture and send to screen.
 if ($visMessage != ""){
@@ -77,12 +77,13 @@ if ($visAnimation == ""){
 //do nothing
 }
 
-if ($visAnimation == "fingers"){
-$output = shell_exec('sudo killall -9 demo');
-$old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/scripts/');
-$output = shell_exec('sudo ./finger.sh > /dev/null 2>/dev/null &');
-chdir($old_path);
+// details on how the code works
+if ($visAnimation == "fingers"){ // what string the form is sending
+$output = shell_exec('sudo killall -9 demo'); // kill the current text, if it's on
+$old_path = getcwd(); // save the current directory
+chdir('/home/pi/led-matrix-controller/scripts/'); // change to animation script directory 
+$output = shell_exec('sudo ./finger.sh > /dev/null 2>/dev/null &'); //execute the animation script. you'll need a new script for every animation
+chdir($old_path); // return to the original directory 
 }
 
 if ($visAnimation == "gpints"){
@@ -414,7 +415,7 @@ chdir($old_path);
               <span class="mdl-chip">
                 <span class="mdl-chip__text">
                   <?php
-$file = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py";
+$file = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py"; // read the current text file
 $f = fopen($file, "r");
 while ( $line = fgets($f, 1000) ) {
 print $line;
