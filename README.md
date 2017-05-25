@@ -36,3 +36,9 @@ The detault password for the web interface is "password". Because of course it i
 Manual Setup
 ------------
 Instructions coming soon. If you want, just open setup.sh to see what's happening, it's all commented out.
+
+Animations
+----------
+There are many included animations, to use these just select the one you want on the web interface and click submit. I personally use this code myself for work in bars and clubs so the included animations are mostly drinks company logos and the like. I've included a photoshop file animations.psd which should make it easy to drop your own images in and replicate the animations. Or, of course, you can make your own from scratch. To add them to the web interface, edit senders.php to include links to your files, or if you want just point the premade ones to your own files if you don't plan on using mine.
+
+Animations should be made the same size as your display. I.E. if you're using 2 32x16 panels, make sure your animations are 64x16 and so on.
