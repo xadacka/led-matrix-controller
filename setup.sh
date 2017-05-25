@@ -1,11 +1,16 @@
 #!/bin/bash
 
-
 #   copyright xer0.design - licenced under gpl 3.0
 #   https://github.com/xer0design/led-matrix-controller
 
-
-echo "please do not use this, it is unfinished code and will almost certainly break something. press ctrl+c to cancel"
+echo "                ___      _           _             "
+echo "__  _____ _ __ / _ \  __| | ___  ___(_) __ _ _ __  "
+echo "\ \/ / _ \ '__| | | |/ _` |/ _ \/ __| |/ _` | '_ \ "
+echo " >  <  __/ |  | |_| | (_| |  __/\__ \ | (_| | | | |"
+echo "/_/\_\___|_|   \___(_)__,_|\___||___/_|\__, |_| |_|"
+echo "                                       |___/       "
+echo "welcome. this is beta code but should work. you should be running raspbian lite."
+echo "setup will start in 10 seconds."
 sleep 10
 #update and upgrade all packages if requested
 read -r -p "Would you like to update apt and upgrade all packages? (recommended) [y/N] " response
