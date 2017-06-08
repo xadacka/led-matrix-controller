@@ -189,6 +189,14 @@ chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./liverpool.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
+if ($visAnimation == "lastdrinks"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./lastdrinks.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
 ?>
 <html>
   <head>
@@ -503,6 +511,11 @@ print $line;
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="hophouse">
                 <input type="radio" id="hophouse" class="mdl-radio__button" name="animation" value="hophouse">
                 <span class="mdl-radio__label">Hophouse
+                </span>
+              </label><br>
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lastdrinks">
+                <input type="radio" id="lastdrinks" class="mdl-radio__button" name="animation" value="lastdrinks">
+                <span class="mdl-radio__label">Last Drinks
                 </span>
               </label><br>
               <br>  
