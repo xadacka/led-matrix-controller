@@ -174,6 +174,14 @@ $output = shell_exec('sudo ./carlsberg.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 
+if ($visAnimation == "teams"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./teams.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
 if ($visAnimation == "budweiser"){
 $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
@@ -257,7 +265,7 @@ chdir($old_path);
           <br>
           <div class="intertext-padding">
           </div>
-          <span class="text-subtitle">v1.3b
+          <span class="text-subtitle">v1.4
           </span>
         </div>	
       </div>
@@ -511,6 +519,11 @@ print $line;
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="hophouse">
                 <input type="radio" id="hophouse" class="mdl-radio__button" name="animation" value="hophouse">
                 <span class="mdl-radio__label">Hophouse
+                </span>
+              </label><br>
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="teams">
+                <input type="radio" id="teams" class="mdl-radio__button" name="animation" value="teams">
+                <span class="mdl-radio__label">Premier League Teams
                 </span>
               </label><br>
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lastdrinks">
