@@ -1,4 +1,1 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-text = (("This is a test", (0,255,255)), (" did it work?", (255,0,255)))
+text = (("xer0.design ", (90, 0, 213)), (" 192.168.1.23 ", (202, 0, 209)))
