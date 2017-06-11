@@ -33,7 +33,8 @@ RuntimeOptions::RuntimeOptions() :
   gpio_slowdown(1),
 #endif
   daemon(0),            // Don't become a daemon by default.
-  drop_privileges(1)    // Encourage good practice: drop privileges by default.
+  drop_privileges(1),    // Encourage good practice: drop privileges by default.
+  do_gpio_init(true)
 {
   // Nothing to see here.
 }
@@ -141,6 +142,9 @@ static bool FlagInit(int &argc, char **&argv,
       if (ConsumeStringFlag("gpio-mapping", it, end,
                             &mopts->hardware_mapping, &err))
         continue;
+      if (ConsumeStringFlag("rgb-sequence", it, end,
+                            &mopts->led_rgb_sequence, &err))
+        continue;
       if (ConsumeIntFlag("rows", it, end, &mopts->rows, &err))
         continue;
       if (ConsumeIntFlag("chain", it, end, &mopts->chain_length, &err))
@@ -160,8 +164,19 @@ static bool FlagInit(int &argc, char **&argv,
         continue;
       if (ConsumeBoolFlag("inverse", it, &mopts->inverse_colors))
         continue;
-      if (ConsumeBoolFlag("swap-green-blue", it, &mopts->swap_green_blue))
+      // We don't have a swap_green_blue option anymore, but we simulate the
+      // flag for a while.
+      bool swap_green_blue;
+      if (ConsumeBoolFlag("swap-green-blue", it, &swap_green_blue)) {
+        if (strlen(mopts->led_rgb_sequence) == 3) {
+          char *new_sequence = strdup(mopts->led_rgb_sequence);
+          new_sequence[0] = mopts->led_rgb_sequence[0];
+          new_sequence[1] = mopts->led_rgb_sequence[2];
+          new_sequence[2] = mopts->led_rgb_sequence[1];
+          mopts->led_rgb_sequence = new_sequence;  // leaking. Ignore.
+        }
         continue;
+      }
       bool allow_hardware_pulsing = !mopts->disable_hardware_pulsing;
       if (ConsumeBoolFlag("hardware-pulse", it, &allow_hardware_pulsing)) {
         mopts->disable_hardware_pulsing = !allow_hardware_pulsing;
@@ -261,7 +276,7 @@ RGBMatrix *CreateMatrixFromOptions(const RGBMatrix::Options &options,
     return NULL;
   }
 
-  if (getuid() != 0) {
+  if (runtime_options.do_gpio_init && getuid() != 0) {
     fprintf(stderr, "Must run as root to be able to access /dev/mem\n"
             "Prepend 'sudo' to the command\n");
     return NULL;
@@ -274,7 +289,8 @@ RGBMatrix *CreateMatrixFromOptions(const RGBMatrix::Options &options,
   }
 
   static GPIO io;  // This static var is a little bit icky.
-  if (!io.Init(runtime_options.gpio_slowdown)) {
+  if (runtime_options.do_gpio_init &&
+      !io.Init(runtime_options.gpio_slowdown)) {
     return NULL;
   }
 
@@ -285,7 +301,8 @@ RGBMatrix *CreateMatrixFromOptions(const RGBMatrix::Options &options,
   RGBMatrix *result = new RGBMatrix(NULL, options);
   // Allowing daemon also means we are allowed to start the thread now.
   const bool allow_daemon = !(runtime_options.daemon < 0);
-  result->SetGPIO(&io, allow_daemon);
+  if (runtime_options.do_gpio_init)
+    result->SetGPIO(&io, allow_daemon);
 
   // TODO(hzeller): if we disallow daemon, then we might also disallow
   // drop privileges: we can't drop privileges until we have created the
@@ -331,8 +348,8 @@ void PrintMatrixFlags(FILE *out, const RGBMatrix::Options &d,
           "\t--led-%sshow-refresh        : %show refresh rate.\n"
           "\t--led-%sinverse             "
           ": Switch if your matrix has inverse colors %s.\n"
-          "\t--led-%sswap-green-blue     : Switch if your matrix has green/blue "
-          "swapped %s.\n"
+          "\t--led-rgb-sequence        : Switch if your matrix has led colors "
+          "swapped (Default: \"RGB\")\n"
           "\t--led-pwm-lsb-nanoseconds : PWM Nanoseconds for LSB "
           "(Default: %d)\n"
           "\t--led-%shardware-pulse   : %sse hardware pin-pulse generation.\n",
@@ -341,7 +358,6 @@ void PrintMatrixFlags(FILE *out, const RGBMatrix::Options &d,
           d.pwm_bits, d.brightness, d.scan_mode,
           d.show_refresh_rate ? "no-" : "", d.show_refresh_rate ? "Don't s" : "S",
           d.inverse_colors ? "no-" : "",    d.inverse_colors ? "off" : "on",
-          d.swap_green_blue ? "no-" : "",  d.swap_green_blue ? "off" : "on",
           d.pwm_lsb_nanoseconds,
           !d.disable_hardware_pulsing ? "no-" : "",
           !d.disable_hardware_pulsing ? "Don't u" : "U");
@@ -403,6 +419,19 @@ bool RGBMatrix::Options::Validate(std::string *err_in) const {
   if (pwm_lsb_nanoseconds < 50 || pwm_lsb_nanoseconds > 3000) {
     err->append("Invalid range of pwm-lsb-nanoseconds (50..3000 allowed).\n");
     success = false;
+  }
+
+  if (led_rgb_sequence == NULL || strlen(led_rgb_sequence) != 3) {
+    err->append("led-sequence needs to be three characters long.\n");
+    success = false;
+  } else {
+    if ((!strchr(led_rgb_sequence, 'R') && !strchr(led_rgb_sequence, 'r'))
+        || (!strchr(led_rgb_sequence, 'G') && !strchr(led_rgb_sequence, 'g'))
+        || (!strchr(led_rgb_sequence, 'B') && !strchr(led_rgb_sequence, 'b'))) {
+      err->append("led-sequence needs to contain all of letters 'R', 'G' "
+                  "and 'B'\n");
+      success = false;
+    }
   }
 
   if (!success && !err_in) {

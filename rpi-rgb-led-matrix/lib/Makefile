@@ -5,7 +5,7 @@
 ##
 OBJECTS=gpio.o led-matrix.o options-initialize.o framebuffer.o \
         thread.o bdf-font.o graphics.o transformer.o led-matrix-c.o \
-	hardware-mapping.o
+	hardware-mapping.o content-streamer.o
 TARGET=librgbmatrix
 
 # There are several different pinouts for various breakout boards that uses
@@ -37,12 +37,6 @@ HARDWARE_DESC?=regular
 # has uses inverse logic for the RGB bits. In that case: uncomment this.
 # Flag: --led-inverse
 #DEFINES+=-DINVERSE_RGB_DISPLAY_COLORS
-
-# Some panels out there seem to have Green and Blue swapped (even though the
-# writing on connector looks correct). This option will swap these colors if
-# you happen to have gotten such panel.
-# Flag: --led-swap-green-blue
-#DEFINES+=-DRGB_SWAP_GREEN_BLUE
 
 # For curiosity reasons and while tweaking values for LSB_PWM_NANOSECONDS,
 # uncomment to see refresh rate in terminal.

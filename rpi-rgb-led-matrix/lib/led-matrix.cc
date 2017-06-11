@@ -164,17 +164,12 @@ RGBMatrix::Options::Options() :
     show_refresh_rate(false),
 #endif
 
-#ifdef RGB_SWAP_GREEN_BLUE
-    swap_green_blue(true),
-#else
-    swap_green_blue(false),
-#endif
-
 #ifdef INVERSE_RGB_DISPLAY_COLORS
-    inverse_colors(true)
+    inverse_colors(true),
 #else
-    inverse_colors(false)
+    inverse_colors(false),
 #endif
+  led_rgb_sequence("RGB")
 {
   // Nothing to see here.
 }
@@ -251,7 +246,7 @@ FrameCanvas *RGBMatrix::CreateFrameCanvas() {
                                               32 * params_.chain_length,
                                               params_.parallel,
                                               params_.scan_mode,
-                                              params_.swap_green_blue,
+                                              params_.led_rgb_sequence,
                                               params_.inverse_colors,
                                               &shared_pixel_mapper_));
   if (created_frames_.empty()) {
@@ -414,5 +409,12 @@ bool FrameCanvas::luminance_correct() const { return frame_->luminance_correct()
 
 void FrameCanvas::SetBrightness(uint8_t brightness) { frame_->SetBrightness(brightness); }
 uint8_t FrameCanvas::brightness() { return frame_->brightness(); }
+
+void FrameCanvas::Serialize(const char **data, size_t *len) const {
+  frame_->Serialize(data, len);
+}
+bool FrameCanvas::Deserialize(const char *data, size_t len) {
+  return frame_->Deserialize(data, len);
+}
 
 }  // end namespace rgb_matrix

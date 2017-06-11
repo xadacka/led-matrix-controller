@@ -16,6 +16,7 @@
 #define RPI_RGBMATRIX_FRAMEBUFFER_INTERNAL_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 #include "hardware-mapping.h"
 
@@ -61,7 +62,7 @@ class Framebuffer {
 public:
   Framebuffer(int rows, int columns, int parallel,
               int scan_mode,
-              bool swap_green_blue, bool inverse_color,
+              const char* led_sequence, bool inverse_color,
               PixelMapper **mapper);
   ~Framebuffer();
 
@@ -90,6 +91,9 @@ public:
 
   void DumpToMatrix(GPIO *io);
 
+  void Serialize(const char **data, size_t *len) const;
+  bool Deserialize(const char *data, size_t len);
+
   // Canvas-inspired methods, but we're not implementing this interface to not
   // have an unnecessary vtable.
   int width() const;
@@ -101,6 +105,13 @@ public:
 private:
   static const struct HardwareMapping *hardware_mapping_;
 
+  // This returns the gpio-bit for given color (one of 'R', 'G', 'B'). This is
+  // returning the right value in case led_sequence_ is _not_ "RGB"
+  gpio_bits_t GetGpioFromLedSequence(char col,
+                                     gpio_bits_t default_r,
+                                     gpio_bits_t default_g,
+                                     gpio_bits_t default_b);
+
   void InitDefaultDesignator(int x, int y, PixelDesignator *designator);
   inline void  MapColors(uint8_t r, uint8_t g, uint8_t b,
                          uint16_t *red, uint16_t *green, uint16_t *blue);
@@ -110,7 +121,7 @@ private:
   const int columns_;  // Number of columns. Number of chained boards * 32.
 
   const int scan_mode_;
-  const bool swap_green_blue_;
+  const char *const led_sequence_;  // Some LEDs are mapped differently.
   const bool inverse_color_;
 
   uint8_t pwm_bits_;   // PWM bits to display.
@@ -119,6 +130,7 @@ private:
 
   const int double_rows_;
   const uint8_t row_mask_;
+  const size_t buffer_size_;
 
   // The frame-buffer is organized in bitplanes.
   // Highest level (slowest to cycle through) are double rows.
