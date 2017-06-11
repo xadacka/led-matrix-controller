@@ -59,7 +59,7 @@ sudo chmod -R 777 www
 sudo chown -R www-data:www-data www
 #add cronjob to display ip address on boot
 echo "adding cronjob to show ip address on boot"
-sudo echo "@reboot /home/pi/led-image-controller/scripts/ip.sh" >> /var/spool/cron/crontabs/root
+sudo echo "@reboot /home/pi/led-matrix-controller/scripts/ip.sh" >> /var/spool/cron/crontabs/root
 clear
 printf  "system will reboot in 10 seconds.\nafter reboot, you should see the ip address on your led panel.\ngo to that address to update the screen.\n\nthe default password is \"password\".\n\n"
 sleep 5
