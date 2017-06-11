@@ -37,7 +37,9 @@ sudo apt-get install libgraphicsmagick++-dev libwebp-dev -y
 echo "making required programs"
 cd rpi-rgb-led-matrix/examples-api-use
 make
-#enter utilities and make
+#enter utilities and make image and video
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+make video-viewer
 cd ../utils 
 make led-image-viewer
 cd ../..
