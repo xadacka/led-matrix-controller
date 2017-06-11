@@ -2,6 +2,7 @@
 *.a
 *~
 led-image-viewer
+video-viewer
 demo
 minimal-example
 text-example
