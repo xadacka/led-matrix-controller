@@ -16,6 +16,7 @@
 
 <?php
 $filename = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py";
+$external = "/home/pi/led-matrix-controller/www/external/ticker.txt";
 $visMessage = strip_tags($_POST['message']);
 $visIntro = strip_tags($_POST['intro']);
 $visColour = strip_tags($_POST['colour']);
@@ -24,8 +25,17 @@ $visAnimation = strip_tags($_POST['animation']);
 $visClear = strip_tags($_POST['clear']);
 $file = '/var/www/html/listclean.txt'; 
 $newfile = '/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py'; 
+$fileext = '/home/pi/led-matrix-controller/www/external/clear.txt'; 
+$newfileext = '/home/pi/led-matrix-controller/www/external/ticker.txt'; 
 // Clear old file
 if (!copy($file, $newfile)) { 
+echo "There has been an error. Screen has not been cleared $file..."; 
+} 
+else{
+echo "Successfully cleared screen.";
+}
+// Clear old external file
+if (!copy($fileext, $newfileext)) { 
 echo "There has been an error. Screen has not been cleared $file..."; 
 } 
 else{
@@ -45,15 +55,25 @@ $msg .= "$visMessage";
 $msg .= "\", (";
 $msg .= "$visColour";
 $msg .= ")))";
+$ext .= "$visIntro $visMessage"; //internal use
+//write the file
 $fp = fopen ($filename, "a");
 if ($fp) {
 fwrite ($fp, $msg);
 fclose ($fp);
 }
+//this second section is for internal use, ignore or delete it if you want.
+$fq = fopen ($external, "a");
+if ($fq) {
+fwrite ($fq, $ext);
+fclose ($fq);
+}
 //reload
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./php.sh > /dev/null 2>/dev/null &');
+chdir('/home/pi/led-matrix-controller/www/external');
+$output = shell_exec('sudo ./external.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 if ($visClear == "clear"){
