@@ -24,15 +24,18 @@ else
 fi
 #install apache2
 echo "installing apache2 required extensions to run the web ui"
-sudo apt install apache2 php5 python -y
-#allowing gpio pins to be run by www-data. this is slightly safer than adding www-data to sudoers
-echo "allowing all users to access gpio"
+sudo apt install apache2 php5 python python-dev python-imaging python-pip -y
+#allowing gpio pins to be run by www-data, and www-data to run the 3 scripts we need sudo for.
+echo "allowing all users to access gpio and run the scripts we need"
 sudo adduser www-data gpio
 sudo adduser pi gpio
+echo "www-data ALL=NOPASSWD: /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/php.sh, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/pithon.py, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/loadpithon.sh, /home/pi/led-matrix-controller/scripts/*" >> /etc/sudoers
+#below is alternative method, this will allow www-data to run ANY command though so make sure only you have access to website. disabled as defaultfor security.
 #echo "chmod 666 /dev/mem" >> /etc/rc.local
 #install tools for generating images
 echo "installing tools required for generating images and text on the fly"
 sudo apt-get install libgraphicsmagick++-dev libwebp-dev -y
+sudo pip install Pillow emoji
 #enter examples and make
 echo "making required programs"
 cd rpi-rgb-led-matrix/examples-api-use
@@ -59,7 +62,7 @@ sudo chmod -R 777 www
 sudo chown -R www-data:www-data www
 #add cronjob to display ip address on boot
 echo "adding cronjob to show ip address on boot"
-sudo echo "@reboot /home/pi/led-matrix-controller/scripts/ip.sh" >> /var/spool/cron/crontabs/root
+sudo echo "@reboot /home/pi/led-matrix-controller/scripts/ip.sh" >> /var/spool/cron/crontabs/pi
 clear
 printf  "system will reboot in 10 seconds.\nafter reboot, you should see the ip address on your led panel.\ngo to that address to update the screen.\n\nthe default password is \"password\".\n\n"
 sleep 5

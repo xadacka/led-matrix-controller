@@ -1,2 +1,3 @@
 #internally, i use the same pi to control an external device but the code wouldn't make sense or work for you so, ignore it.
 external.php
+external
