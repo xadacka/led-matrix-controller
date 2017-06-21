@@ -15,6 +15,48 @@
 ?>
 
 <?php
+
+
+//ignore this section.
+$eXternal = strip_tags($_POST['eXternal']);
+if ($eXternal == "tl"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./tl.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "tr"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./tr.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "bl"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./bl.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "br"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./br.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "uncle"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./uncle.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "clear"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./empty.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+//end ignore section
+
 $filename = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py";
 $external = "/home/pi/led-matrix-controller/www/external/ticker.txt";
 $visMessage = strip_tags($_POST['message']);
@@ -87,6 +129,8 @@ fclose ($fp);
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./php.sh > /dev/null 2>/dev/null &');
+chdir('/home/pi/led-matrix-controller/www/external');
+$output = shell_exec('./empty.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 // End Capture
@@ -567,9 +611,9 @@ print $line;
               </span>
             </div>
             </div>
-            
                   <div class="wow fadeInUp content-works"> 
       </div>
+            <?php include("external/external.php"); //ignore this ?>
       <div name="admin" class="wow fadeInUp content-card" style="margin-top: 0;">
         <span class="text-subtitle" style="font-size: 2em; font-weight: 300; color: #333">Screen Clear.
         </span>
