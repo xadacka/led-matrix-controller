@@ -6,3 +6,4 @@
 
 killall -9 led-image-viewer
 killall -9 demo
+killall -9 text-example

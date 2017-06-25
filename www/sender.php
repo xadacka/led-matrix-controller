@@ -85,10 +85,13 @@ else{
 echo "Successfully cleared screen.";
 }
 // clock code
-if ($visMessage != "clock"){
+if ($visAnimation == "clock"){
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./time.sh > /dev/null 2>/dev/null &');
+}
+else { 
+echo "no clock";
 }
 // Capture and send to screen.
 if ($visMessage != ""){
@@ -122,8 +125,6 @@ fclose ($fq);
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./php.sh > /dev/null 2>/dev/null &');
-//chdir('/home/pi/led-matrix-controller/www/external');
-//$output = shell_exec('./external.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 //external ticked?
