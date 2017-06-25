@@ -84,6 +84,12 @@ echo "There has been an error. Screen has not been cleared $fileext...";
 else{
 echo "Successfully cleared screen.";
 }
+// clock code
+if ($visMessage != "clock"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
+$output = shell_exec('sudo ./time.sh > /dev/null 2>/dev/null &');
+}
 // Capture and send to screen.
 if ($visMessage != ""){
 $msg .= "#!/usr/bin/env python\n";
@@ -99,6 +105,7 @@ $msg .= "\", (";
 $msg .= "$visColour";
 $msg .= ")))";
 $ext .= "$visIntro $visMessage"; //internal use
+
 //write the file
 $fp = fopen ($filename, "a");
 if ($fp) {
@@ -608,6 +615,11 @@ print $line;
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lastdrinks">
                 <input type="radio" id="lastdrinks" class="mdl-radio__button" name="animation" value="lastdrinks">
                 <span class="mdl-radio__label">Last Drinks
+                </span>
+              </label><br>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="clock">
+                <input type="radio" id="clock" class="mdl-radio__button" name="animation" value="clock">
+                <span class="mdl-radio__label">Live Updated Clock
                 </span>
               </label><br>
                             <br>

@@ -29,7 +29,7 @@ sudo apt install apache2 php5 python python-dev python-imaging python-pip -y
 echo "allowing all users to access gpio and run the scripts we need"
 sudo adduser www-data gpio
 sudo adduser pi gpio
-echo "www-data ALL=NOPASSWD: /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/php.sh, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/pithon.py, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/loadpithon.sh, /home/pi/led-matrix-controller/scripts/*" >> /etc/sudoers
+echo "www-data ALL=NOPASSWD: /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/php.sh, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/pithon.py, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/loadpithon.sh, /home/pi/led-matrix-controller/scripts/*, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/time.sh" >> /etc/sudoers
 #below is alternative method, this will allow www-data to run ANY command though so make sure only you have access to website. disabled as defaultfor security.
 #echo "chmod 666 /dev/mem" >> /etc/rc.local
 #install tools for generating images
