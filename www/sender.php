@@ -545,8 +545,13 @@ print $line;
             <!-- form -->
             <form method="post" action="sender.php">
               <!-- intro -->                
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="clock">
+                <input type="radio" id="clock" class="mdl-radio__button" name="animation" value="clock" checked>
+                <span class="mdl-radio__label">Realtime Clock
+                </span>
+              </label><br><br>
               <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="blogo">
-                <input type="radio" id="blogo" class="mdl-radio__button" name="animation" value="blogo" checked>
+                <input type="radio" id="blogo" class="mdl-radio__button" name="animation" value="blogo">
                 <span class="mdl-radio__label">Brogue Logo
                 </span>
                             </label><br>
@@ -616,11 +621,6 @@ print $line;
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lastdrinks">
                 <input type="radio" id="lastdrinks" class="mdl-radio__button" name="animation" value="lastdrinks">
                 <span class="mdl-radio__label">Last Drinks
-                </span>
-              </label><br>
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="clock">
-                <input type="radio" id="clock" class="mdl-radio__button" name="animation" value="clock">
-                <span class="mdl-radio__label">Live Updated Clock
                 </span>
               </label><br>
                             <br>
