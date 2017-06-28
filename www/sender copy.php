@@ -16,9 +16,50 @@
 
 <?php
 
-include("external/externalcode.php"); // this is for loading external code, see readme.md for more information
+
+//ignore this section.
+$eXternal = strip_tags($_POST['eXternal']);
+if ($eXternal == "tl"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./tl.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "tr"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./tr.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "bl"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./bl.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "br"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./br.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "uncle"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./uncle.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+if ($eXternal == "clear"){
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/www/external/');
+$output = shell_exec('./empty.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+//end ignore section
 
 $filename = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py";
+$external = "/home/pi/led-matrix-controller/www/external/ticker.txt"; // ignore 
+$visExternalCheck = isset($_POST['updateext']); // ignore 
 $visMessage = strip_tags($_POST['message']);  
 $visIntro = strip_tags($_POST['intro']);
 $visColour = strip_tags($_POST['colour']);
@@ -27,6 +68,8 @@ $visAnimation = strip_tags($_POST['animation']);
 $visClear = strip_tags($_POST['clear']);
 $file = '/var/www/html/listclean.txt'; 
 $newfile = '/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py'; 
+$fileext = '/home/pi/led-matrix-controller/www/external/clear.txt';  // ignore
+$newfileext = '/home/pi/led-matrix-controller/www/external/ticker.txt'; // ignore 
 // Clear old file on page load 
 if (!copy($file, $newfile)) { 
 echo "There has been an error. Screen has not been cleared $file..."; 
@@ -64,8 +107,7 @@ $msg .= "$visMessage";
 $msg .= "\", (";
 $msg .= "$visColour";
 $msg .= ")))";
-    
-$ext .= "$visIntro $visMessage"; // ignore or delete, for internal use.
+$ext .= "$visIntro $visMessage"; //internal use
 
 //write the file
 $fp = fopen ($filename, "a");
@@ -73,23 +115,21 @@ if ($fp) {
 fwrite ($fp, $msg);
 fclose ($fp);
 }
-// ignore or delete, for internal use.
+//this second section is for internal use, ignore or delete it if you want.
 $fq = fopen ($external, "a");
 if ($fq) {
 fwrite ($fq, $ext);
 fclose ($fq);
 }
-//end ignore
-    
 //reload
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./php.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
-// ignore or delete, for internal use.
+//external ticked?
 if ($visExternalCheck == "1"){
-$output = shell_exec('/home/pi/led-matrix-controller/www/external/scripts/config/ticker.sh > /dev/null 2>/dev/null &');
+$output = shell_exec('/home/pi/led-matrix-controller/www/external/external.sh > /dev/null 2>/dev/null &');
 }
 //when user clicks clear button
 if ($visClear == "clear"){
@@ -103,8 +143,8 @@ fclose ($fp);
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./php.sh > /dev/null 2>/dev/null &');
-chdir('/home/pi/led-matrix-controller/www/external/scripts/config/');
-$output = shell_exec('./clear.sh > /dev/null 2>/dev/null &');
+chdir('/home/pi/led-matrix-controller/www/external');
+$output = shell_exec('./empty.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 // End Capture
@@ -295,23 +335,23 @@ chdir($old_path);
                         <img src="img/ic_launcher.png" class="appicon">
                         </img>
                         <div class="title-container">
-                            <span class="text-title">xer0.design
+                            <span class="text-title">xer0.led
           </span>
                             <br>
                             <div class="intertext-padding">
                             </div>
-                            <span class="text-subtitle">led-matrix-controller
+                            <span class="text-subtitle">panel manager
           </span>
                             <br>
                             <div class="intertext-padding">
                             </div>
-                            <span class="text-subtitle">v1.6
+                            <span class="text-subtitle">v1.5
           </span>
                         </div>
                     </div>
                     <br>
                     <br>
-                    <span class="text-description" style="font-size: 1.1em"><br>
+                    <span class="text-description" style="font-size: 1.1em">Welcome to xer0.led version 1.5<br><br>To enter text, use the first section. Please note that if using only one colour, ONLY type on the message box, not the intro box. An empty message box will result in no message.<br><br>To use a premade animation, just select one and hit submit. We'll be adding more animations soon.<br><br>To turn off the screen, scroll to the very bottom and hit disable. <?php echo $visExternalCheck ?>
         <form name="logout" method="post" action="sender.php">
           <button type="submit" name="Logout" value="Logout" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
             Logout.
@@ -327,7 +367,7 @@ chdir($old_path);
                     <div class="detail-item">
                         <iron-icon class="details-icon" icon="info">
                         </iron-icon>
-                        <span class="text-description" style="color: rgb(<?php echo $visColour ?>)">Current message: "
+                        <span class="text-description" style="color: rgb(<?php echo $visColour ?>)">Message changed to "
             <?php echo $visIntro ?> 
             <?php echo $visMessage ?>".
             <span>
@@ -338,7 +378,7 @@ chdir($old_path);
               <!-- intro -->
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="intro" class="mdl-textfield__input" type="text">
-                <label class="mdl-textfield__label" for="intro">Intro Text: (optional)
+                <label class="mdl-textfield__label" for="intro">(OPTIONAL)Intro Text: 
                 </label>
               </div> 
               <br>
@@ -399,7 +439,7 @@ chdir($old_path);
                         <!-- message -->
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input name="message" class="mdl-textfield__input" type="text">
-                            <label class="mdl-textfield__label" for="message">Message Text: (required)
+                            <label class="mdl-textfield__label" for="message">(MANDATORY)Message Text:
                 </label>
                         </div>
                         <br>
@@ -456,10 +496,10 @@ chdir($old_path);
                 <span class="mdl-radio__label">Hot Pink
                 </span>
               </label>
-                        <br><br><br><!-- delete this, internal use only -->
+                        <br><br><br>
                 <input type="checkbox" id="updateext" name="updateext" value="Yes" checked>
 <label for="updateext">Also update the TV ticker?</label>
-<!-- end delte -->
+
          <br><br>
 
 
@@ -497,7 +537,7 @@ print $line;
                         <div class="detail-item">
                             <iron-icon class="details-icon" icon="info">
                             </iron-icon>
-                            <span>Current Animation: "
+                            <span>Animaton changed to: "
             <?php echo $visAnimation ?>.
             <span>
               </div>
@@ -635,11 +675,12 @@ print $line;
                                 <div class="wow fadeInUp detail-item watermark credits">
                                     <span class="text-description credits-text" style="color: #ffffff">powered by 
                   <a href="http://xer0.design" style="color: #cccccc; font-weight: 700">xer0.design
-                  </a>   -   licenced under GPL 3.0  -   <a href="https://github.com/xer0design/led-matrix-controller" style="color: #cccccc; font-weight: 700">source</a>
-                </span> <!-- removing this footer is a violation of the GPL. -->
+                  </a>
+                </span>
                                 </div>
                             </div>
                         </div>
+                        <!-- ===================================================================================================== -->
                         <!-- JAVASCRIPT -->
                         <!-- Animations -->
                         <script src="js/wow.min.js">
