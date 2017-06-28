@@ -2,7 +2,7 @@
 
 session_start();
 
-$logins = array('xer0' => 'password');
+$logins = array('xer0' => 'password'); //change password to whatever you'd like.
 
 if($_POST['Submit'] == 'Submit') { 
     $user = $_POST['user']; 
