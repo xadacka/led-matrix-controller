@@ -3,15 +3,29 @@
 #   copyright xer0.design - licenced under gpl 3.0
 #   https://github.com/xer0design/led-matrix-controller
 
+clear
+
 echo "                ___      _           _             "
 echo "__  _____ _ __ / _ \  __| | ___  ___(_) __ _ _ __  "
 echo "\ \/ / _ \ '__| | | |/ _\` |/ _ \/ __| |/ _\` | '_ \ "
 echo " >  <  __/ |  | |_| | (_| |  __/\__ \ | (_| | | | |"
 echo "/_/\_\___|_|   \___(_)__,_|\___||___/_|\__, |_| |_|"
 echo "                                       |___/       "
-echo "welcome. this is beta code but should work. you should be running raspbian lite."
-echo "setup will start in 10 seconds."
-sleep 10
+echo " "
+echo "welcome to led-matrix-controller by xer0.design"
+echo " "
+echo "this usually takes about 10-20 minutes, depending on if you update packages."
+echo " "
+echo "go get yourself a cup of coffee and your screen will turn on and display the login ip address when finished."
+echo " "
+echo "the default webui password is password - change this."
+sleep 15
+
+#clone into correct directory and prepare install
+cd /home/pi
+git clone https://github.com/xer0design/led-matrix-controller.git
+cd led-matrix-controller
+
 #update and upgrade all packages if requested
 read -r -p "Would you like to update apt and upgrade all packages? (recommended) [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
@@ -30,7 +44,7 @@ echo "allowing all users to access gpio and run the scripts we need"
 sudo adduser www-data gpio
 sudo adduser pi gpio
 echo "www-data ALL=NOPASSWD: /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/php.sh, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/pithon.py, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/loadpithon.sh, /home/pi/led-matrix-controller/scripts/*, /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/time.sh" >> /etc/sudoers
-#below is alternative method, this will allow www-data to run ANY command though so make sure only you have access to website. disabled as defaultfor security.
+#below is alternative method, this will allow www-data to run ANY command though so make sure only you have access to website. disabled as default for security.
 #echo "chmod 666 /dev/mem" >> /etc/rc.local
 #install tools for generating images
 echo "installing tools required for generating images and text on the fly"
@@ -42,9 +56,9 @@ cd rpi-rgb-led-matrix/examples-api-use
 make
 #add video programs, enter utilities and make image and video
 sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+cd ../utils 
 make video-viewer
 make led-image-viewer
-cd ../utils 
 cd ../..
 #disable pi sound
 echo "dtparam=audio=off" >> /boot/config.txt
@@ -64,7 +78,7 @@ sudo chown -R www-data:www-data www
 echo "adding cronjob to show ip address on boot"
 sudo echo "@reboot /home/pi/led-matrix-controller/scripts/ip.sh" >> /var/spool/cron/crontabs/pi
 clear
-printf  "system will reboot in 10 seconds.\nafter reboot, you should see the ip address on your led panel.\ngo to that address to update the screen.\n\nthe default password is \"password\".\n\n"
+printf  "system will reboot in 10 seconds.\nafter reboot, led panel should show your your screen ip\ngo to that address to update the screen.\n\nthe default password is \"password\".\n\n"
 sleep 5
 echo "5"
 sleep 1
