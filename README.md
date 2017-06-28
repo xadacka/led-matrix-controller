@@ -16,16 +16,14 @@ Automated Setup
 ---------------
 We strongly recommend running raspbian-lite as opposed to the full version, you can download the image [here](https://www.raspberrypi.org/downloads/raspbian/)
 
-To use this code, simply run the commands below. You'll be asked if you'd like to upgrade all packages on the system, you probably won't need to, especially if running a freshly downloaded image, but it's never really a bad idea to be up to date.
+To use this code, simply run the command below. You'll be asked if you'd like to upgrade all packages on the system, you probably won't need to, especially if running a freshly downloaded image, but it's never really a bad idea to be up to date.
 
-The setup script will only work properly if you're cloning into /home/pi - if you'd rather install it somewhere else, you'll need to update the install script to reflect your location.
+The setup script will clone into /home/pi - as of now it'll only work in this folder.
+
+Of course, piping unkown scripts into bash isn't generally good security policy but if you've any doubts just take a look at the install script yourself and you'll see all is in order.
 
 ```
-cd /home/pi
-git clone https://github.com/xer0design/led-matrix-controller.git
-cd led-matrix-controller
-chmod +x setup.sh
-./setup.sh
+curl -sSL https://raw.githubusercontent.com/xer0design/led-matrix-controller/master/setup.sh | bash
 ```
 
 
