@@ -18,6 +18,7 @@
 
 include("external/externalcode.php"); // this is for loading external code, see readme.md for more information
 
+$visInternalCheck = isset($_POST['updateint']); //check to see if the update screen checkbox is ticked
 $filename = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py";
 $visMessage = strip_tags($_POST['message']);  
 $visIntro = strip_tags($_POST['intro']);
@@ -80,16 +81,17 @@ fwrite ($fq, $ext);
 fclose ($fq);
 }
 //end ignore
-    
-//reload
-$old_path = getcwd();
-chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
-$output = shell_exec('sudo ./php.sh > /dev/null 2>/dev/null &');
-chdir($old_path);
 }
+
+include("external/externalstocks.php"); // this is for loading external code, see readme.md for more information
 // ignore or delete, for internal use.
 if ($visExternalCheck == "1"){
 $output = shell_exec('/home/pi/led-matrix-controller/www/external/scripts/config/ticker.sh > /dev/null 2>/dev/null &');
+}
+//end ignore
+//you need this one
+if ($visInternalCheck == "1"){
+$output = shell_exec('sudo /home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/php.sh > /dev/null 2>/dev/null &');
 }
 //when user clicks clear button
 if ($visClear == "clear"){
@@ -99,7 +101,7 @@ if ($fp) {
 fwrite ($fp, $msg);
 fclose ($fp);
 }
-//reload 
+//reload panel(s)
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./php.sh > /dev/null 2>/dev/null &');
@@ -456,10 +458,13 @@ chdir($old_path);
                 <span class="mdl-radio__label">Hot Pink
                 </span>
               </label>
-                        <br><br><br><!-- delete this, internal use only -->
-                <input type="checkbox" id="updateext" name="updateext" value="Yes" checked>
-<label for="updateext">Also update the TV ticker?</label>
-<!-- end delte -->
+                        <br><br><br><h3></h3><!-- delete this, internal use only -->
+                <input type="checkbox" id="updateext" name="updateext" value="Yes">
+<label for="updateext">Update TV Ticker?</label>
+<!-- end delete --><br><!-- keep this one -->
+                <input type="checkbox" id="updateint" name="updateint" value="Yes">
+<label for="updateext">Updated LED Screen?</label>
+                <!-- end keep --></h3>
          <br><br>
 
 
@@ -581,6 +586,11 @@ print $line;
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="lastdrinks">
                 <input type="radio" id="lastdrinks" class="mdl-radio__button" name="animation" value="lastdrinks">
                 <span class="mdl-radio__label">Last Drinks
+                </span>
+              </label><br>
+              <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="stocks">
+                <input type="radio" id="stocks" class="mdl-radio__button" name="stocks" value="stocks">
+                <span class="mdl-radio__label">Stocks <!-- this one won't work for you -->
                 </span>
               </label><br>
                             <br>
