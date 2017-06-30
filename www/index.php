@@ -41,7 +41,7 @@
 				<div class="icon-and-title-flex">
 					<img src="img/ic_launcher.png" class="appicon"></img>
 					<div class="title-container">
-						<span class="text-title">xer0.led panel manager</span>
+						<span class="text-title">xer0.led-matrix-controller</span>
 						<br><div class="intertext-padding"></div>
 						<span class="text-subtitle">by xer0.design</span>
 						<br><div class="intertext-padding"></div>
@@ -82,24 +82,17 @@
      	</div>
 		
 
-		
-		
-		<div class="empty-space">
-			<div class="meta-container wow fadeInUp">
-				<div class="wow fadeInUp detail-item watermark credits">
-						<span class="text-description credits-text" style="color: #ffffff">powered by <a href="http://xer0.design" style="color: #cccccc; font-weight: 700">xer0.design</a></span><!-- removing this footer is a violation of the GPL. -->
-				</div>
-			</div>	
-		</div>
-			
-			
-			
-			
-			
-		<!-- ===================================================================================================== -->
-			
-		<!-- JAVASCRIPT -->
-		
+                        <div class="empty-space">
+                            <div class="meta-container wow fadeInUp">
+                                <div class="wow fadeInUp detail-item watermark credits">
+                                    <span class="text-description credits-text" style="color: #ffffff">powered by 
+                  <a href="http://xer0.design" style="color: #cccccc; font-weight: 700">xer0.design
+                  </a>   -   licenced under GPL 3.0  -   <a href="https://github.com/xer0design/led-matrix-controller" style="color: #cccccc; font-weight: 700">source</a>
+                </span> <!-- removing this footer is a violation of the GPL. -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- JAVASCRIPT -->
 		<!-- Animations -->
 		<script src="js/wow.min.js"></script>
 		<script>
