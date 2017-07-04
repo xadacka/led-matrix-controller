@@ -28,28 +28,12 @@ $visAnimation = strip_tags($_POST['animation']);
 $visClear = strip_tags($_POST['clear']);
 $file = '/var/www/html/listclean.txt'; 
 $newfile = '/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py'; 
-// Clear old file on page load 
-if (!copy($file, $newfile)) { 
-echo "There has been an error. Screen has not been cleared $file..."; 
-} 
-else{
-echo "Successfully cleared screen.";
-}
-// Clear old external file
-if (!copy($fileext, $newfileext)) { 
-echo "There has been an error. Screen has not been cleared $fileext..."; 
-} 
-else{
-echo "Successfully cleared screen.";
-}
+
 // clock code
 if ($visAnimation == "clock"){
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/');
 $output = shell_exec('sudo ./time.sh > /dev/null 2>/dev/null &');
-}
-else { 
-echo "no clock";
 }
 // Capture and send to screen.
 if ($visMessage != ""){
@@ -68,17 +52,33 @@ $msg .= ")))";
     
 $ext .= "$visIntro $visMessage"; // ignore or delete, for internal use.
 
-//write the file
+//clear the old ticker file
+if (!copy($file, $newfile)) { 
+echo "<h1>Ticker Clear: 🚫</h1><br>"; 
+} 
+else{
+echo "<h1>Ticker Clear: ✅</h1><br>";
+}
+// clear the old external file (ignore)
+if (!copy($fileext, $newfileext)) { 
+echo "<h1>External Clear: 🚫</h1><br>"; 
+} 
+else{
+echo "<h1>External Clear: ✅</h1><br>";
+}
+//write the new ticker file
 $fp = fopen ($filename, "a");
 if ($fp) {
 fwrite ($fp, $msg);
 fclose ($fp);
+echo "<h1>Ticker Updated: ✅</h1><br>";
 }
-// ignore or delete, for internal use.
+// write the new external file (igonore)
 $fq = fopen ($external, "a");
 if ($fq) {
 fwrite ($fq, $ext);
 fclose ($fq);
+echo "<h1>External Updated: ✅</h1><br>";
 }
 //end ignore
 }
@@ -245,6 +245,7 @@ chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./lastdrinks.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 ?>
         <html>
 
@@ -307,7 +308,7 @@ chdir($old_path);
                             <br>
                             <div class="intertext-padding">
                             </div>
-                            <span class="text-subtitle">v1.6
+                            <span class="text-subtitle">v1.6.2
           </span>
                         </div>
                     </div>

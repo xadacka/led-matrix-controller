@@ -45,7 +45,7 @@
 						<br><div class="intertext-padding"></div>
 						<span class="text-subtitle">by xer0.design</span>
 						<br><div class="intertext-padding"></div>
-						<span class="text-subtitle">v1.6</span>
+						<span class="text-subtitle">v1.6.2</span>
 					</div>	
 				</div><br><br>
 				<span class="text-description" style="font-size: 1.1em">Welcome to the control panel for xer0.led screens.<br>If this is your first time setting up your screen, please see readme.md for more information.<br><br>If you are on this page because you saw the address on the screen, please kindly inform managment that the screen has been reset, they'll take it from there.<br><br>If you would like to buy a xer0.led setup similar to this, please contact <a href="mailto:led@xer0.design">led@xer0.design</a>		
