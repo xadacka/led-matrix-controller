@@ -40,13 +40,13 @@ Basic configuration
 
 Password Management
 -------------------
-As default, the password protected access is both not fully enabled, and set to the default password "password". You should fix both of these things in a live environment. If go just type [/sender.php](./www/sender.php) after the pi's ip address, you'll have full control without the need to login. This is useful on closed networks and when testing (so you don't get logged out every few minutes), but to enable password verification for the sender screen, you'll need to edit [sender.php](./www/sender.php) and remove the comments from the first section. This will ensure no one else can access your system. This is especially important considering some scripts can be run with sudo through the web ui - not ideal. 
+As default, the password protected access is both not fully enabled, and set to the default password "password". You should fix both of these things in a live environment. If go just type [/sender.php](/www/sender.php) after the pi's ip address, you'll have full control without the need to login. This is useful on closed networks and when testing (so you don't get logged out every few minutes), but to enable password verification for the sender screen, you'll need to edit [sender.php](/www/sender.php) and remove the comments from the first section. This will ensure no one else can access your system. This is especially important considering some scripts can be run with sudo through the web ui - not ideal. 
 
-To change the password, modify [login.php](.www/login.php) and edit the third line - obviously, you should also enable password authentication on sender.php as listed above.
+To change the password, modify [login.php](www/login.php) and edit the third line - obviously, you should also enable password authentication on sender.php as listed above.
 
 Fonts
 -----
-If you're not too fond of the standard font, American Captain, that's cool, we get it, it's quite easy to change. Edit the file [pithon.py](.rpi-rgb-led-matrix/examples-api-use/pithon.py) (yes, we're awful at naming files). You'll see a few examples listed but commented out, just comment out the standard font and uncomment an alternative. If none of them do it for you, you can copy any .ttf font you like into the directory and link to it. In fact, it doesn't even have to be in the same directory. You may have to change the font size when selecting something else. 
+If you're not too fond of the standard font, American Captain, that's cool, we get it, it's quite easy to change. Edit the file [pithon.py](rpi-rgb-led-matrix/examples-api-use/pithon.py) (yes, we're awful at naming files). You'll see a few examples listed but commented out, just comment out the standard font and uncomment an alternative. If none of them do it for you, you can copy any .ttf font you like into the directory and link to it. In fact, it doesn't even have to be in the same directory. You may have to change the font size when selecting something else. 
 
 Animations
 ----------
