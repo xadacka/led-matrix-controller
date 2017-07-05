@@ -6,6 +6,8 @@ Web based controller for led panels. This code is designed for Raspberry Pi usin
 
 Clone the repository into your home folder (/home/pi - you'll have to edit setup.sh if using another directory) and then you can cd in and run setup.sh. The setup script will install apache2 and move the required files into the web directory and change a few permissions for apache. The only way this can work is by letting www-data (apache, php) access the GPIO pins. By default, they require sudo - the setup script allows www-data to access them. This is a minor security issue but shouldn't be too bad.
 
+![web ui](images/ui.png)
+
 Notes on screen size/chain length
 ----------------------------------
 Currently, the code is designed for 4 32x16 panels in series from chain 1 - will soon be adding an option on the web interface for changing how many panels you have and how they're chained. You can manually change this now to add/remove panels by changing the flags in the bash scripts, namely the important ones are as follows.
