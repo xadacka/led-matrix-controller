@@ -54,31 +54,31 @@ $ext .= "$visIntro $visMessage"; // ignore or delete, for internal use.
 
 //clear the old ticker file
 if (!copy($file, $newfile)) { 
-echo "<h1>Ticker Clear: 🚫</h1><br>"; 
+echo "<h3>T-CLR: 🚫</h3>  "; 
 } 
 else{
-echo "<h1>Ticker Clear: ✅</h1><br>";
+echo "<h3>T-CLR: ✅</h3>  ";
 }
 // clear the old external file (ignore)
 if (!copy($fileext, $newfileext)) { 
-echo "<h1>External Clear: 🚫</h1><br>"; 
+echo "<h3>E-CLR: 🚫</h3>   "; 
 } 
 else{
-echo "<h1>External Clear: ✅</h1><br>";
+echo "<h3>E-CLR: ✅</h3>   ";
 }
 //write the new ticker file
 $fp = fopen ($filename, "a");
 if ($fp) {
 fwrite ($fp, $msg);
 fclose ($fp);
-echo "<h1>Ticker Updated: ✅</h1><br>";
+echo "<h3>T-UP: ✅</h3>   ";
 }
 // write the new external file (igonore)
 $fq = fopen ($external, "a");
 if ($fq) {
 fwrite ($fq, $ext);
 fclose ($fq);
-echo "<h1>External Updated: ✅</h1><br>";
+echo "<h3>E-UP: ✅</h3>   ";
 }
 //end ignore
 }
