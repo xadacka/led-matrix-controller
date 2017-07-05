@@ -18,6 +18,13 @@
 
 include("external/externalcode.php"); // this is for loading external code, see readme.md for more information
 
+//these flags are for the footer, the emoji will show if there's been no action on that variable.
+$textclear ="❕"; 
+$textreplace ="❕"; 
+$externalclear ="❕"; 
+$externalreplace ="❕"; 
+
+
 $visInternalCheck = isset($_POST['updateint']); //check to see if the update screen checkbox is ticked
 $filename = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py";
 $visMessage = strip_tags($_POST['message']);  
@@ -54,31 +61,31 @@ $ext .= "$visIntro $visMessage"; // ignore or delete, for internal use.
 
 //clear the old ticker file
 if (!copy($file, $newfile)) { 
-echo "<h3>T-CLR: 🚫</h3>  "; 
+$textclear ="❌"; 
 } 
 else{
-echo "<h3>T-CLR: ✅</h3>  ";
+$textclear ="✅";
 }
 // clear the old external file (ignore)
 if (!copy($fileext, $newfileext)) { 
-echo "<h3>E-CLR: 🚫</h3>   "; 
+$externalclear ="❌";
 } 
 else{
-echo "<h3>E-CLR: ✅</h3>   ";
+$externalclear ="✅";
 }
 //write the new ticker file
 $fp = fopen ($filename, "a");
 if ($fp) {
 fwrite ($fp, $msg);
 fclose ($fp);
-echo "<h3>T-UP: ✅</h3>   ";
+$textreplace ="✅";
 }
 // write the new external file (igonore)
 $fq = fopen ($external, "a");
 if ($fq) {
 fwrite ($fq, $ext);
 fclose ($fq);
-echo "<h3>E-UP: ✅</h3>   ";
+$externalreplace ="✅";
 }
 //end ignore
 }
@@ -640,7 +647,6 @@ print $line;
                                 </span>
                             </div>
                         </div>
-
                         <div class="empty-space">
                             <div class="meta-container wow fadeInUp">
                                 <div class="wow fadeInUp detail-item watermark credits">
@@ -648,6 +654,14 @@ print $line;
                   <a href="http://xer0.design" style="color: #cccccc; font-weight: 700">xer0.design
                   </a>   -   licenced under GPL 3.0  -   <a href="https://github.com/xer0design/led-matrix-controller" style="color: #cccccc; font-weight: 700">source</a>
                 </span> <!-- removing this footer is a violation of the GPL. -->
+                                </div>
+                                <div class="wow fadeInUp detail-item watermark credits">
+                                    <span class="text-description credits-text" style="color: #ffffff">Status of last action: <?php echo "Text Clear: $textclear - External Clear: $externalclear - Text Replace: $textreplace - External Replace: $externalreplace. - Bubble Clear: $bubbleclear - Bubble Replace: $bubblereplace";?>
+                </span> 
+                                </div>
+                                <div class="wow fadeInUp detail-item watermark credits">
+                                    <span class="text-description credits-text" style="color: #ffffff">✅ = Successful. ❕ = Not Requested. ❌ = Failed.
+                </span> 
                                 </div>
                             </div>
                         </div>
