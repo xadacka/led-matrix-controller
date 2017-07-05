@@ -6,15 +6,21 @@ Web based controller for led panels. This code is designed for Raspberry Pi usin
 
 Clone the repository into your home folder (/home/pi - you'll have to edit setup.sh if using another directory) and then you can cd in and run setup.sh. The setup script will install apache2 and move the required files into the web directory and change a few permissions for apache. The only way this can work is by letting www-data (apache, php) access the GPIO pins. By default, they require sudo - the setup script allows www-data to access them. This is a minor security issue but shouldn't be too bad.
 
-Notes before starting
----------------------
-Currently, the code is designed for 4 32x16 panels in series from chain 1 - will soon be adding an option on the web interface for changing how many panels you have and how they're chained. You can manually change this now to add/remove panels by changing the flags in the bash scripts but this will be horribly time consuming for you. Best just wait it out.
+Notes on screen size/chain length
+----------------------------------
+Currently, the code is designed for 4 32x16 panels in series from chain 1 - will soon be adding an option on the web interface for changing how many panels you have and how they're chained. You can manually change this now to add/remove panels by changing the flags in the bash scripts, namely the important ones are as follows.
 
-You should probably wire the panels before running the scripts as once it's installed, it'll show you the pi's IP on the screen but you can leave that until after if you like. Wiring diagram is [here](./wiring.md)
+For text: [piyhon.py](rpi-rgb-led-matrix/examples-api-use/pithon.py)
+For clock: [time.sh](rpi-rgb-led-matrix/examples-api-use/time.sh)
+For animations: Every script in [scripts](scripts)
+
+Simple change --led-rows=16 to how many pixels high your panels are and --led-chain=4 to the amount of panels you're using.
 
 Automated Setup
 ---------------
 We strongly recommend running raspbian-lite as opposed to the full version, you can download the image [here](https://www.raspberrypi.org/downloads/raspbian/)
+
+You should probably wire the panels before running the scripts as once it's installed, it'll show you the pi's IP on the screen but you can leave that until after if you like. Wiring diagram is [here](./wiring.md)
 
 To use this code, simply run the command below. You'll be asked if you'd like to upgrade all packages on the system, you probably won't need to, especially if running a freshly downloaded image, but it's never really a bad idea to be up to date.
 
@@ -54,7 +60,11 @@ There are many included animations, to use these just select the one you want on
 
 Animations should be made the same size as your display. I.E. if you're using 2 32x16 panels, make sure your animations are 64x16 and so on.) As of 1.5, we cloned the most recent code from [Hzeller](https://github.com/hzeller/rpi-rgb-led-matrix), so we now have video functionality, but we haven't added any standard examples yet. h.264 seems to run very well, so we'd recommend that. 
 
+External Refrences
+------------------
+You'll see a few refrences to an external folder and also to a few external files, you can ignore these and delete the refrences, or you can make use of them and add in your own external files, or you can just leave them there - it won't effect performance in any meaningful way. I use this code primarily for myself along side another system which the external code controls.
+
 Copyright & Licensing
-_________
+=====================
 We've no doubts you know how GPL 3.0 works, but just to make things extra clear, you're fully allowed to use this code for both personal and commercial use, but you must keep all copyright notices in tact and share your changes under the same conditions. 
 You can change the title section of the page if you like, the xer0.design led-matrix-controller vX.X bit with the icon, but the footer must be kept under all circumstances, along with notices inside the code. This code is offered as-is, with no warranty.
