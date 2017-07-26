@@ -1,5 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <?php 
+
 #by default, sender.php can be loaded without password. uncomment this section and the page will not load without correct password
 
 #session_start(); 
@@ -35,6 +36,8 @@ $visAnimation = strip_tags($_POST['animation']);
 $visClear = strip_tags($_POST['clear']);
 $file = '/var/www/html/listclean.txt'; 
 $newfile = '/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py'; 
+
+include("external/externalstocks.php"); // this is for loading external code, see readme.md for more information
 
 // clock code
 if ($visAnimation == "clock"){
@@ -90,7 +93,6 @@ $externalreplace ="✅";
 //end ignore
 }
 
-include("external/externalstocks.php"); // this is for loading external code, see readme.md for more information
 // ignore or delete, for internal use.
 if ($visExternalCheck == "1"){
 $output = shell_exec('/home/pi/led-matrix-controller/www/external/scripts/config/ticker.sh > /dev/null 2>/dev/null &');
@@ -116,6 +118,7 @@ chdir('/home/pi/led-matrix-controller/www/external/scripts/config/');
 $output = shell_exec('./clear.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
+
 // End Capture
 ?>
     <?php
@@ -315,7 +318,7 @@ chdir($old_path);
                             <br>
                             <div class="intertext-padding">
                             </div>
-                            <span class="text-subtitle">v1.6.2
+                            <span class="text-subtitle">v1.6.5
           </span>
                         </div>
                     </div>
