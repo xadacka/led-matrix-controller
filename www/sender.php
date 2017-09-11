@@ -33,11 +33,17 @@ $visIntro = strip_tags($_POST['intro']);
 $visColour = strip_tags($_POST['colour']);
 $vis1Colour = strip_tags($_POST['1colour']);
 $visAnimation = strip_tags($_POST['animation']);
+$visImage = strip_tags($_POST['image']);
 $visClear = strip_tags($_POST['clear']);
 $file = '/var/www/html/listclean.txt'; 
 $newfile = '/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py'; 
 
 include("external/externalstocks.php"); // this is for loading external code, see readme.md for more information
+
+
+$image = '/home/pi/led-matrix-controller/www/external/image.txt'; 
+$imgfile = '/var/www/html/listclean.txt'; 
+$newimgfile = '/home/pi/led-matrix-controller/www/external/image.txt'; 
 
 // clock code
 if ($visAnimation == "clock"){
@@ -61,6 +67,7 @@ $msg .= "$visColour";
 $msg .= ")))";
     
 $ext .= "$visIntro $visMessage"; // ignore or delete, for internal use.
+
 
 //clear the old ticker file
 if (!copy($file, $newfile)) { 
@@ -92,6 +99,52 @@ $externalreplace ="✅";
 }
 //end ignore
 }
+
+
+// image stuff ignore
+if ($visImage != ""){
+$img .= "$visImage";
+
+//clear the old img file
+if (!copy($imgfile, $newimgfile)) { 
+$imgclear ="❌"; 
+} 
+else{
+$imgclear ="✅";
+}
+//write the new img file
+$fi = fopen ($image, "a");
+if ($fi) {
+fwrite ($fi, $img);
+fclose ($fi);
+$imgreplace ="✅";
+}
+}
+
+if ($visImage == ""){
+$img .= "blank.png";
+
+//clear the old img file
+if (!copy($imgfile, $newimgfile)) { 
+$imgclear ="❌"; 
+} 
+else{
+$imgclear ="✅";
+}
+//write the new img file
+$fi = fopen ($image, "a");
+if ($fi) {
+fwrite ($fi, $img);
+fclose ($fi);
+$imgreplace ="✅";
+}
+
+//end ignore
+}
+
+
+
+
 
 // ignore or delete, for internal use.
 if ($visExternalCheck == "1"){
@@ -141,6 +194,22 @@ $output = shell_exec('sudo killall -9 demo');
 $old_path = getcwd();
 chdir('/home/pi/led-matrix-controller/scripts/');
 $output = shell_exec('sudo ./guinnesspints.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
+if ($visAnimation == "gpints"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./guinnesspints.sh > /dev/null 2>/dev/null &');
+chdir($old_path);
+}
+
+if ($visAnimation == "birthday"){
+$output = shell_exec('sudo killall -9 demo');
+$old_path = getcwd();
+chdir('/home/pi/led-matrix-controller/scripts/');
+$output = shell_exec('sudo ./birthday.sh > /dev/null 2>/dev/null &');
 chdir($old_path);
 }
 
@@ -469,6 +538,14 @@ chdir($old_path);
                 <span class="mdl-radio__label">Hot Pink
                 </span>
               </label>
+                        <br>
+                        <!-- image -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input name="image" class="mdl-textfield__input" type="text">
+                            <label class="mdl-textfield__label" for="image">Image URL: (for TV, optional)
+                </label>
+                        </div>
+                        <br>
                         <br><br><br><h3></h3><!-- delete this, internal use only -->
                 <input type="checkbox" id="updateext" name="updateext" value="Yes">
 <label for="updateext">Update TV Ticker?</label>
@@ -553,6 +630,10 @@ print $line;
               </label><br><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="eggplants">
                 <input type="radio" id="eggplants" class="mdl-radio__button" name="animation" value="eggplants">
                 <span class="mdl-radio__label">Eggplants
+                </span>
+              </label><br><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="birthday">
+                <input type="radio" id="birthday" class="mdl-radio__button" name="animation" value="birthday">
+                <span class="mdl-radio__label">Happy Birthday
                 </span>
               </label><br><label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="tuamstars">
                 <input type="radio" id="tuamstars" class="mdl-radio__button" name="animation" value="tuamstars">
