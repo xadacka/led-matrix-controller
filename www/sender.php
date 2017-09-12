@@ -1,6 +1,43 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <?php 
 
+// image upload code, ignore
+$target_dir = "/home/pi/led-matrix-controller/www/external/upload/";
+$target_file = $target_dir . "file.jpg";
+$uploadOk = 1;
+$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+    if($check !== false) {
+        echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        echo "File is not an image.";
+        $uploadOk = 0;
+    }
+}
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" ) {
+    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    $uploadOk = 0;
+}
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
+}
+// end ignore
+
+
+
 #by default, sender.php can be loaded without password. uncomment this section and the page will not load without correct password
 
 #session_start(); 
@@ -27,20 +64,24 @@ $externalreplace ="❕";
 
 
 $visInternalCheck = isset($_POST['updateint']); //check to see if the update screen checkbox is ticked
+$visImgFS = isset($_POST['imgfs']); //check to see if the image fs checkbox is ticked
+$visImgFSTick = isset($_POST['imgfstick']); //check to see if the image fs checkbox is ticked
 $filename = "/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py";
 $visMessage = strip_tags($_POST['message']);  
+$visImgClear = strip_tags($_POST['imgclear']); // ticker image, ignore
 $visIntro = strip_tags($_POST['intro']);
 $visColour = strip_tags($_POST['colour']);
 $vis1Colour = strip_tags($_POST['1colour']);
 $visAnimation = strip_tags($_POST['animation']);
-$visImage = strip_tags($_POST['image']);
+//$visImage = strip_tags($_POST['image']); // ignore, image for tv ticker
+$visImage = "upload/file.jpg";
 $visClear = strip_tags($_POST['clear']);
 $file = '/var/www/html/listclean.txt'; 
 $newfile = '/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/scrolltext.py'; 
 
 include("external/externalstocks.php"); // this is for loading external code, see readme.md for more information
 
-
+// image files for tv, also ignore
 $image = '/home/pi/led-matrix-controller/www/external/image.txt'; 
 $imgfile = '/var/www/html/listclean.txt'; 
 $newimgfile = '/home/pi/led-matrix-controller/www/external/image.txt'; 
@@ -101,49 +142,20 @@ $externalreplace ="✅";
 }
 
 
-// image stuff ignore
-if ($visImage != ""){
-$img .= "$visImage";
-
-//clear the old img file
-if (!copy($imgfile, $newimgfile)) { 
-$imgclear ="❌"; 
-} 
-else{
-$imgclear ="✅";
-}
-//write the new img file
-$fi = fopen ($image, "a");
-if ($fi) {
-fwrite ($fi, $img);
-fclose ($fi);
-$imgreplace ="✅";
-}
+// ticker image remover 
+if ($visImgClear != ""){
+$output = shell_exec('rm /home/pi/led-matrix-controller/www/external/upload/file.jpg');
+$output = shell_exec('cp /home/pi/led-matrix-controller/www/external/upload/blank.jpg /home/pi/led-matrix-controller/www/external/upload/file.jpg');
+$output = shell_exec('/home/pi/led-matrix-controller/www/external/scripts/config/ticker.sh');
 }
 
-if ($visImage == ""){
-$img .= "blank.png";
-
-//clear the old img file
-if (!copy($imgfile, $newimgfile)) { 
-$imgclear ="❌"; 
-} 
-else{
-$imgclear ="✅";
-}
-//write the new img file
-$fi = fopen ($image, "a");
-if ($fi) {
-fwrite ($fi, $img);
-fclose ($fi);
-$imgreplace ="✅";
+if ($visImgFS == "1"){
+$output = shell_exec('/home/pi/led-matrix-controller/www/external/scripts/config/image.sh > /dev/null 2>/dev/null &');
 }
 
-//end ignore
+if ($visImgFSTick == "1"){
+$output = shell_exec('/home/pi/led-matrix-controller/www/external/scripts/config/imagetick.sh > /dev/null 2>/dev/null &');
 }
-
-
-
 
 
 // ignore or delete, for internal use.
@@ -416,7 +428,7 @@ chdir($old_path);
               </div>
             <br>
             <!-- form -->
-            <form method="post" action="sender.php">
+            <form method="post" action="sender.php" enctype="multipart/form-data">
               <!-- intro -->
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input name="intro" class="mdl-textfield__input" type="text">
@@ -539,20 +551,25 @@ chdir($old_path);
                 </span>
               </label>
                         <br>
+			<!-- newimage -->
+		<input type="file" name="fileToUpload" id="fileToUpload">
                         <!-- image -->
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input name="image" class="mdl-textfield__input" type="text">
-                            <label class="mdl-textfield__label" for="image">Image URL: (for TV, optional)
-                </label>
-                        </div>
                         <br>
-                        <br><br><br><h3></h3><!-- delete this, internal use only -->
-                <input type="checkbox" id="updateext" name="updateext" value="Yes">
-<label for="updateext">Update TV Ticker?</label>
-<!-- end delete --><br><!-- keep this one -->
+                        <br><br><br><h3></h3>                
+                <!-- keep this one -->
                 <input type="checkbox" id="updateint" name="updateint" value="Yes">
-<label for="updateext">Updated LED Screen?</label>
-                <!-- end keep --></h3>
+<label for="updateext">Update LED Screen</label><br>
+                <!-- end keep -->
+                <!-- delete this, internal use only -->
+                <input type="checkbox" id="updateext" name="updateext" value="Yes">
+<label for="updateext">Update TV Ticker</label><br>
+                <input type="checkbox" id="imgfs" name="imgfs" value="Yes">
+<label for="updateext">Put Image In Corner</label><br>
+                <input type="checkbox" id="imgfstick" name="imgfstick" value="Yes">
+<label for="updateext">Full Screen Image With Ticker</label>
+<!-- end delete -->
+                <br>
+</h3>
          <br><br>
 
 
@@ -705,13 +722,13 @@ print $line;
                         </div>
                         <?php include("external/external.php"); //ignore this ?>
                         <div name="admin" class="wow fadeInUp content-card" style="margin-top: 0;">
-                            <span class="text-subtitle" style="font-size: 2em; font-weight: 300; color: #333">Screen Clear.
+                            <span class="text-subtitle" style="font-size: 2em; font-weight: 300; color: #333">Administration.
         </span>
                             <br>
                             <div class="detail-item">
                                 <iron-icon class="details-icon" icon="info">
                                 </iron-icon>
-                                <span>Press the button below if you want to turn off the screen.
+                                <span>Master controls to disable things or fix problems. 
             <span>
               </div>
             <br>
@@ -721,6 +738,13 @@ print $line;
                 <input type="hidden" value="clear" name="clear" />
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" >
                 Disable
+              </button>
+            </form>
+            <form method="post" action="sender.php">
+              <!-- clear -->
+                <input type="hidden" value="imgclear" name="imgclear" />
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit" >
+                Remove Ticker Image
               </button>
             </form>
             <div>
