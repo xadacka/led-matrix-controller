@@ -566,7 +566,7 @@ chdir($old_path);
                 <input type="checkbox" id="imgfs" name="imgfs" value="Yes">
 <label for="updateext">Put Image In Corner</label><br>
                 <input type="checkbox" id="imgfstick" name="imgfstick" value="Yes">
-<label for="updateext">Full Screen Image With Ticker</label>
+<label for="updateext">Full Screen Image With Ticker (Short Message Only)</label>
 <!-- end delete -->
                 <br>
 </h3>
