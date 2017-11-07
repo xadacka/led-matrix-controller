@@ -4,7 +4,13 @@ led-matrix-controller
 =====================
 Web based controller for led panels. This code is designed for Raspberry Pi using HUB75 led panels. You can buy the panels cheap from China, or get them off eBay or adafruit or a multitude of other places.
 
-Clone the repository into your home folder (/home/pi - you'll have to edit setup.sh if using another directory) and then you can cd in and run setup.sh. The setup script will install apache2 and move the required files into the web directory and change a few permissions for apache. The only way this can work is by letting www-data (apache, php) access the GPIO pins. By default, they require sudo - the setup script allows www-data to access them. This is a minor security issue but shouldn't be too bad.
+To use this code, simply run the command below.
+
+```
+curl -sSL https://raw.githubusercontent.com/xer0design/led-matrix-controller/master/setup.sh | bash
+```
+
+The setup script will install apache2 and move the required files into the web directory and change a few permissions for apache. The only way this can work is by letting www-data (apache, php) access the GPIO pins. By default, they require sudo - the setup script allows www-data to access them. This is a minor security issue but shouldn't be too bad.
 
 ![web ui](images/ui.png)
 
@@ -24,7 +30,7 @@ We strongly recommend running raspbian-lite as opposed to the full version, you 
 
 You should probably wire the panels before running the scripts as once it's installed, it'll show you the pi's IP on the screen but you can leave that until after if you like. Wiring diagram is [here](./wiring.md)
 
-To use this code, simply run the command below. You'll be asked if you'd like to upgrade all packages on the system, you probably won't need to, especially if running a freshly downloaded image, but it's never really a bad idea to be up to date.
+To use this code, simply run the command below. 
 
 The setup script will clone into /home/pi - as of now it'll only work in this folder.
 
