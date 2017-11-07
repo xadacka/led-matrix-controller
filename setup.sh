@@ -26,16 +26,6 @@ cd /home/pi
 git clone https://github.com/xer0design/led-matrix-controller.git
 cd led-matrix-controller
 
-#update and upgrade all packages if requested
-read -r -p "Would you like to update apt and upgrade all packages? (recommended) [y/N] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]];
-then
-	echo "okay, upgrading packages"
-	sudo apt update
-	sudo apt -y upgrade
-else
-    echo "okay, continuing..."
-fi
 #install apache2
 echo "installing apache2 required extensions to run the web ui"
 sudo apt install apache2 php5 python python-dev python-imaging python-pip -y
