@@ -29,7 +29,7 @@ cd led-matrix-controller
 #update apt
 sudo apt update
 #install git if it's not already installed
-sudo apt install git
+sudo apt install git -y
 #install apache2
 echo "installing apache2 required extensions to run the web ui"
 sudo apt install apache2 php5 python python-dev python-imaging python-pip -y
