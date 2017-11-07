@@ -1,4 +1,4 @@
-#!/bin/bash
+	#!/bin/bash
 
 #   copyright xer0.design - licenced under gpl 3.0
 #   https://github.com/xer0design/led-matrix-controller
@@ -28,7 +28,7 @@ cd led-matrix-controller
 
 #update and upgrade all packages if requested
 read -r -p "Would you like to update apt and upgrade all packages? (recommended) [y/N] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]];
 then
 	echo "okay, upgrading packages"
 	sudo apt update
