@@ -61,7 +61,7 @@ echo "setting up web controller"
 #remove current html directory
 sudo rm -rf /var/www/html
 #make symlink for website to load from current folder and make sure permissions are okay
-ln -s /home/pi/led-matrix-controller/www/ /var/www/html
+sudo ln -s /home/pi/led-matrix-controller/www/ /var/www/html
 sudo chmod -R 777 www
 sudo chown -R www-data:www-data www
 #add cronjob to display ip address on boot
