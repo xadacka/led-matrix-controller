@@ -50,7 +50,7 @@ echo "making required programs"
 cd rpi-rgb-led-matrix/examples-api-use
 make
 #add video programs, enter utilities and make image and video
-sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev -y
 cd ../utils 
 make video-viewer
 make led-image-viewer
