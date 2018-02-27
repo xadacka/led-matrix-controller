@@ -1,4 +1,4 @@
-Note: This is still beta and will be changing and needs to be tidied up a bit but it all works pretty well, just install it and control it from the web interface.
+Note: This is still beta and will be changing and needs to be tidied up a bit but it all works pretty well, just install it and control it from the web interface. There is a huge update coming soon that redesigns the entire interface and back end, stay tuned for that it'll make the whole thing 10x more usable and stable, along with making it easy too update the animations.
 
 led-matrix-controller
 =====================
