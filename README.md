@@ -7,7 +7,7 @@ Web based controller for led panels. This code is designed for Raspberry Pi usin
 To use this code, simply run the command below.
 
 ```
-curl -sSL https://raw.githubusercontent.com/xer0design/led-matrix-controller/master/setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/xadacka/led-matrix-controller/master/setup.sh | bash
 ```
 
 The setup script will install apache2 and move the required files into the web directory and change a few permissions for apache. The only way this can work is by letting www-data (apache, php) access the GPIO pins. By default, they require sudo - the setup script allows www-data to access them. This is a minor security issue but shouldn't be too bad.
