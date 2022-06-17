@@ -21,6 +21,7 @@
 
 namespace rgb_matrix {
 
+    
 /*****************************/
 /* Rotate Transformer Canvas */
 /*****************************/
@@ -144,6 +145,8 @@ void LinkedTransformer::DeleteTransformers() {
   list_.clear();
 }
 
+        
+
 // U-Arrangement Transformer.
 class UArrangementTransformer::TransformCanvas : public Canvas {
 public:
@@ -229,3 +232,4 @@ Canvas *LargeSquare64x64Transformer::Transform(Canvas *output) {
   return rotated_.Transform(arrange_.Transform(output));
 }
 } // namespace rgb_matrix
+

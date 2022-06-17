@@ -86,6 +86,9 @@ private:
 //   [>][>][>][>]
 //   [<][<][<][<]  }--- Pi connector #2
 //   [>][>][>][>]
+
+    
+
 class UArrangementTransformer : public CanvasTransformer {
 public:
   UArrangementTransformer(int parallel = 1);

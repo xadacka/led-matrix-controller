@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
-#from __future__ import unicode_literals
 import emoji
 import os
 import scrolltext
@@ -49,4 +48,4 @@ for text_color_pair in text:
  
 im.save("/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/test.ppm")
  
-os.system("/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/demo -D 1 test.ppm --led-rows=16 --led-chain=4")
+os.system("/home/pi/led-matrix-controller/rpi-rgb-led-matrix/examples-api-use/demo -D 1 test.ppm --led-rows=16 --led-chain=4 -R 180")
