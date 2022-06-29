@@ -33,7 +33,7 @@ cd led-matrix-controller
 
 #install apache2
 echo "installing apache2 required extensions to run the web ui"
-sudo apt install apache2 php5 python python-dev python-imaging python-pip -y
+sudo apt install apache2 php7.4 python3 python3-dev python3-imaging python3-pip -y
 #allowing gpio pins to be run by www-data, and www-data to run the 3 scripts we need sudo for.
 echo "allowing all users to access gpio and run the scripts we need"
 sudo adduser www-data gpio
